@@ -1,0 +1,36 @@
+name: Common CI
+on:
+  workflow_call:
+    inputs:
+      component_name:
+        required: true
+        type: string
+jobs:
+  Build:
+    runs-on: self-hosted
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      -run: echo Build
+
+  Test:
+    runs-on: self-hosted
+    needs: Build
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      -run: echo Test
+
+  Dev-Deploy:
+    runs-on: self-hosted
+    needs: Test
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          repository: https://github.com/salllmanshaik/roboshop-helm
+      -name: Deploy
+      - run: |
+          
+          aws eks update-kubeconfig --name dev
+          make component=${{ inputs.component_name }} env=dev
