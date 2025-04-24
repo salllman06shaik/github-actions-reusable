@@ -30,7 +30,7 @@ jobs:
         with:
           repository: salllmanshaik/roboshop-helm
       - name: Deploy
-      - run: |
+        run: |
           export PATH=/home/github/.local/bin:/home/github/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
           aws eks update-kubeconfig --name dev
           make component=${{ inputs.component_name }} env=dev
