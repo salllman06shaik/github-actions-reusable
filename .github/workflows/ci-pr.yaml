@@ -1,0 +1,25 @@
+name: Common CI
+on:
+  workflow_call:
+    inputs:
+      component_name:
+        required: true
+        type: string
+jobs:
+  Code-Quality-Checks:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo Code-Quality-Checks
+
+  Test:
+    runs-on: self-hosted
+    needs: Code-Quality-Checks
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo Unit Tests
+        name: Unit Tests
+      - run: echo Integration Tests
+        name: Integration Tests
