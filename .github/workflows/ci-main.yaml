@@ -22,6 +22,8 @@ jobs:
             mvn package
           fi
           docker build -t 533267148162.dkr.ecr.us-east-1.amazonaws.com/${{inputs.component_name}}:${GITHUB_SHA} .
+          trivy image -s HIGH,CRITICAL --ignore-unfixed 533267148162.dkr.ecr.us-east-1.amazonaws.com/${{inputs.component_name}}:${GITHUB_SHA} --exit-code 1
+
 
   Docker-Push:
     runs-on: self-hosted
